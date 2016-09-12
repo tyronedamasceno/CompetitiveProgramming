@@ -31,7 +31,8 @@ int dist[1003];
 
 int dijkstra(int o, int d)
 {
-	rep(i, 0, 1003) dist[i] = 99999999;	
+	rep(i, 0, 1003) dist[i] = 99999999;
+
 }
 
 int main()
@@ -63,7 +64,7 @@ int main()
 		int ans = dijkstra(orig, dest);
 
 		if (ans > k) cout << fixed << setprecision(3) << 0.0 << endl;
-		if (ans > k) cout << fixed << setprecision(3) << pow(p, ans) << endl;
+		else cout << fixed << setprecision(3) << pow(p, ans) << endl;
 
 	}
 
