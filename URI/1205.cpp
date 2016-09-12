@@ -28,10 +28,49 @@ double p;
 map <int, int> sold;
 vi adj[1003];
 int dist[1003];
+int vis[1003];
 
 int dijkstra(int o, int d)
 {
 	rep(i, 0, 1003) dist[i] = 99999999;
+	clr(vis, 0);
+
+	dist[o] = sold[o];
+
+	priority_queue < ii, vii, greater<ii> > pq;
+
+	pq.push(mp(dist[o], o)); // distancia / vertice atual
+
+	while(!pq.empty())
+	{
+		ii p = pq.top();
+		int at = p.S;
+		pq.pop();
+
+		if (!vis[u])
+		{
+			vis[u] = 1;
+
+			for(int i = 0; i < adj[at].size(); i++)
+			{
+				int prox = adj[at][i];
+				int custo = sold[prox];
+				cout << custo << endl;
+
+				if (dist[prox] > dist[at] + custo)
+				{
+					cout << "entrou aq" << at << " " << prox << endl;
+					dist[prox] = dist[i] + custo;
+					pq.push(mp(dist[prox], prox));
+				}
+			}
+
+
+		}
+
+	}
+
+	return dist[d];
 
 }
 
@@ -60,10 +99,13 @@ int main()
 		}
 
 		in2(orig, dest);
-
+		orig--; dest--;
 		int ans = dijkstra(orig, dest);
 
-		if (ans > k) cout << fixed << setprecision(3) << 0.0 << endl;
+		if (ans > k)
+		{
+			cout << fixed << setprecision(3) << 0.0 << endl;
+		}
 		else cout << fixed << setprecision(3) << pow(p, ans) << endl;
 
 	}
