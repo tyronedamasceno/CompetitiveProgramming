@@ -32,8 +32,11 @@ int vis[1003];
 
 int dijkstra(int o, int d)
 {
-	rep(i, 0, 1003) dist[i] = 99999999;
-	clr(vis, 0);
+	rep(i, 0, 1003)
+	{
+		dist[i] = 99999999;
+		vis[i] = 0;
+	}
 
 	dist[o] = sold[o];
 
@@ -47,20 +50,18 @@ int dijkstra(int o, int d)
 		int at = p.S;
 		pq.pop();
 
-		if (!vis[u])
+		if (!vis[at])
 		{
-			vis[u] = 1;
+			vis[at] = 1;
 
 			for(int i = 0; i < adj[at].size(); i++)
 			{
 				int prox = adj[at][i];
 				int custo = sold[prox];
-				cout << custo << endl;
-
-				if (dist[prox] > dist[at] + custo)
+				
+				if (dist[at] + custo < dist[prox])
 				{
-					cout << "entrou aq" << at << " " << prox << endl;
-					dist[prox] = dist[i] + custo;
+					dist[prox] = dist[at] + custo;
 					pq.push(mp(dist[prox], prox));
 				}
 			}
