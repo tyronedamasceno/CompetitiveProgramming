@@ -165,13 +165,9 @@ Remove_If ( FwrdIt first_ , FwrdIt last_ , UnaryPredicate p )
 	{
 		if ( p( *first_ ) )
 		{
-			FwrdIt tmp_ = first_ + 1;
-			while (tmp_ != last_)
-			{
-				*tmp_ = *(tmp_ + 1);
-				tmp_++;
-			}
 			last_--;
+			for (FwrdIt tmp_ = first_; tmp_ != last_; tmp_++)
+				*tmp_ = *(tmp_ + 1);
 		}
 	}
 	return last_;
@@ -199,14 +195,10 @@ Unique ( FwrdIt first_ , FwrdIt last_ , Compare cmp )
 		}
 		if (flag)
 		{
-			FwrdIt tmp = beg_;
-			beg_ = fast_;
-			fast_ = tmp;
+			std::swap(beg_, fast_);
 			slow_++;
 		}
 	}
-
-
 
 	return slow_;
 }
@@ -272,10 +264,14 @@ int main( )
     //================================================================================
     // II. Utilizando Min.
     //--------------------------------------------------------------------------------
+
     auto min_grade = Min( std::begin(arr), std::end(arr), compareByMedia);
 	auto media = (min_grade->grades[0] + min_grade->grades[1] + min_grade->grades[2]) / 3.0;
 	std::cout << "\n\n>>> Aluno com menor media: " << min_grade->name << std::endl;
 	std::cout << ">>> Media do aluno: " << media << std::endl;
+
+
+
 
 
     //================================================================================
@@ -287,11 +283,12 @@ int main( )
     auto endCopy = Copy(std::begin(arr), std::end(arr), beginCopy);
     auto newEndCopy = Unique(beginCopy, endCopy, compareByName);
 
-
     std::cout << "\n\n>>> Lista de nomes de alunos sem repetições de nome: " << std::endl;
     for (/* empty */; beginCopy != newEndCopy; beginCopy++)
         std::cout << beginCopy->name << std::endl;
 	
+
+
 
     //================================================================================
     // IV. Copy & Remove_If 
@@ -301,14 +298,21 @@ int main( )
     endCopy = Copy(std::begin(arr), std::end(arr), beginCopy);
     newEndCopy = Remove_If(beginCopy, endCopy, predGreater7);
     
-    
+    std::cout << "\n\n>>> Alunos com media menor que 7.0" << std::endl;
+    for(/* empty */; beginCopy != newEndCopy; beginCopy++)
+    	std::cout << beginCopy->name << std::endl;
+
+
+
     //================================================================================
     // IV. Find_If
     //--------------------------------------------------------------------------------
     
     auto alunoRep = Find_If(std::begin(arr), std::end(arr), predReposition);
+    auto menorMedia = std::min(alunoRep->grades[0], std::min(alunoRep->grades[1], alunoRep->grades[2]));
     std::cout << "\n\n>>> O primeiro aluno que esta em reposicao eh: " << alunoRep->name << std::endl;
-
+    std::cout << ">>> E sua menor media eh: " << menorMedia << std::endl;
+ 
 
     /*
     
