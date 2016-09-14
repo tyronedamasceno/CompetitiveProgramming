@@ -81,6 +81,13 @@ predReposition (const Student & _a)
 	return (_a.grades[0] < 3.0 || _a.grades[1] < 3.0 || _a.grades[2] < 3.0);
 }
 
+bool
+predGreater7 (const Student & _a)
+{
+	auto media = (_a.grades[0] + _a.grades[1] + _a.grades[2]) / 3.0;
+	return media >= 7.0;
+}
+
 
 
 /**!
@@ -179,22 +186,29 @@ template < typename FwrdIt , typename Compare >
 FwrdIt
 Unique ( FwrdIt first_ , FwrdIt last_ , Compare cmp )
 {
-	for ( /* empty*/ ; first_ != last_; first_++)
+	FwrdIt slow_, fast_, beg_;
+	beg_ = slow_ = fast_ = first_;
+	auto flag = true;
+	for (/* empty */; fast_ != last_; fast_++)
 	{
-		auto aux_ = first_ + 1;
-        for ( /* empty */; aux_ != last_; aux_++)
-        {
-            if (compareByName(*aux_, *first_))
-            {
-                auto aux_2_ = aux_ + 1;
-                for (/* empty */; aux_2_ != last_; aux_2_++)
-                    *aux_2_ = *(aux_2_ + 1);
-                last_--;
-            }
-        }
-
+		flag = true;
+		beg_ = first_;
+		for (/* empty */; beg_ != fast_; beg_++)
+		{
+			if (cmp(*beg_, *fast_)) flag = false;
+		}
+		if (flag)
+		{
+			FwrdIt tmp = beg_;
+			beg_ = fast_;
+			fast_ = tmp;
+			slow_++;
+		}
 	}
-	return last_;
+
+
+
+	return slow_;
 }
 
 
@@ -263,15 +277,10 @@ int main( )
 	std::cout << "\n\n>>> Aluno com menor media: " << min_grade->name << std::endl;
 	std::cout << ">>> Media do aluno: " << media << std::endl;
 
-	auto alunoRep = Find_If(std::begin(arr), std::end(arr), predReposition);
-    std::cout << "\n\n>>> O primeiro aluno que esta em reposicao eh: " << alunoRep->name << std::endl;
-
 
     //================================================================================
     // III. Utilizando Copy & Unique.
     //--------------------------------------------------------------------------------
-    
-    // Criando uma lista vazia com mesmo nome que a lista original.
     
     Student arrCopy[ arrSz ];
     auto beginCopy = std::begin(arrCopy);
@@ -288,12 +297,19 @@ int main( )
     // IV. Copy & Remove_If 
     //--------------------------------------------------------------------------------
     
+    beginCopy = std::begin(arrCopy);
+    endCopy = Copy(std::begin(arr), std::end(arr), beginCopy);
+    newEndCopy = Remove_If(beginCopy, endCopy, predGreater7);
     
     
     //================================================================================
-    // IV. Copy & Remove_If 
+    // IV. Find_If
     //--------------------------------------------------------------------------------
     
+    auto alunoRep = Find_If(std::begin(arr), std::end(arr), predReposition);
+    std::cout << "\n\n>>> O primeiro aluno que esta em reposicao eh: " << alunoRep->name << std::endl;
+
+
     /*
     
     TO DO
