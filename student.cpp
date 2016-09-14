@@ -72,7 +72,7 @@ compareByMedia ( const Student & _a, const Student & _b )
 bool
 predBySemester ( const Student & _a)
 {
-	return (_a.year % 10 != 2); 
+	return (_a.year % 10 == 2); 
 }
 
 bool
@@ -82,10 +82,10 @@ predReposition (const Student & _a)
 }
 
 bool
-predGreater7 (const Student & _a)
+predUnder7 (const Student & _a)
 {
 	auto media = (_a.grades[0] + _a.grades[1] + _a.grades[2]) / 3.0;
-	return media >= 7.0;
+	return media < 7.0;
 }
 
 
@@ -161,16 +161,17 @@ template < typename FwrdIt , typename UnaryPredicate >
 FwrdIt
 Remove_If ( FwrdIt first_ , FwrdIt last_ , UnaryPredicate p )
 {
-	for ( /* empty */; first_ != last_; first_++)
+	FwrdIt slow_, fast_;
+	slow_ = fast_ = first_;
+	for ( /* empty */; fast_ != last_; fast_++)
 	{
-		if ( p( *first_ ) )
+		if ( p( *fast_ ) )
 		{
-			last_--;
-			for (FwrdIt tmp_ = first_; tmp_ != last_; tmp_++)
-				*tmp_ = *(tmp_ + 1);
+			std::swap(*slow_, *fast_);
+			slow_++;
 		}
 	}
-	return last_;
+	return slow_;
 }
 
 
@@ -268,7 +269,7 @@ int main( )
     auto min_grade = Min( std::begin(arr), std::end(arr), compareByMedia);
 	auto media = (min_grade->grades[0] + min_grade->grades[1] + min_grade->grades[2]) / 3.0;
 	std::cout << "\n\n>>> Aluno com menor media: " << min_grade->name << std::endl;
-	std::cout << ">>> Media do aluno: " << media << std::endl;
+	std::cout << ">>> Media do aluno: " << std::fixed << std::setprecision(1) << media << std::endl;
 
 
 
@@ -296,11 +297,13 @@ int main( )
     
     beginCopy = std::begin(arrCopy);
     endCopy = Copy(std::begin(arr), std::end(arr), beginCopy);
-    newEndCopy = Remove_If(beginCopy, endCopy, predGreater7);
+    newEndCopy = Remove_If(beginCopy, endCopy, predUnder7);
     
     std::cout << "\n\n>>> Alunos com media menor que 7.0" << std::endl;
     for(/* empty */; beginCopy != newEndCopy; beginCopy++)
     	std::cout << beginCopy->name << std::endl;
+
+
 
 
 
@@ -311,26 +314,22 @@ int main( )
     auto alunoRep = Find_If(std::begin(arr), std::end(arr), predReposition);
     auto menorMedia = std::min(alunoRep->grades[0], std::min(alunoRep->grades[1], alunoRep->grades[2]));
     std::cout << "\n\n>>> O primeiro aluno que esta em reposicao eh: " << alunoRep->name << std::endl;
-    std::cout << ">>> E sua menor media eh: " << menorMedia << std::endl;
+    std::cout << ">>> E sua menor media eh: " << std::fixed << std::setprecision(1) << menorMedia << std::endl;
  
 
-    /*
-    
-    TO DO
-    
-    
-    Student arrSemester[ arrSz ];
-    auto arrEnd = Remove_If(std::begin(arr), std::end(arr), predBySemester);
-    arrEnd = Copy(std::begin(arr), std::end(arr), std::begin(arrSemester));
-	auto beginSemester = std::begin(arrSemester);
+    //================================================================================
+    // V. Copy & Remove_If
+    //--------------------------------------------------------------------------------
 
+	beginCopy = std::begin(arrCopy);
+    endCopy = Copy(std::begin(arr), std::end(arr), beginCopy);
+    newEndCopy = Remove_If(beginCopy, endCopy, predBySemester);
 
-	for ( ; beginSemester != arrEnd; beginSemester++)
-		std::cout << beginSemester->name << std::endl;
-	
-	
-	*/
-	
+    std::cout << "\n\n>>> Alunos que entraram no segundo semestre de qualquer ano: " << std::endl;
+    for (/* empty */; beginCopy != newEndCopy; beginCopy++)
+    	std::cout << beginCopy->name << std::endl;
+
+		
     std::cout << "\n\n>>> Normal exiting...\n";
 
     return EXIT_SUCCESS;
