@@ -63,9 +63,16 @@ bubble(FwrdIt first_, FwrdIt last_, Comparator cmp)
 	for (auto i(0); i < sz; i++)
 	{
 		auto aux = first_ + 1;
+		auto swapped = false;
 		for (/* empty */; aux != last_ - i; aux++)
+		{
 			if (cmp(*aux, *(aux-1)))
+			{
+				swapped = true;
 				std::swap(*aux, *(aux-1));
+			}
+		}
+		if (!swapped) break;
 	}
 }
 
