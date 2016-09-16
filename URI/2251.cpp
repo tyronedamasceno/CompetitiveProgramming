@@ -21,6 +21,13 @@ typedef map <string, int> msi;
 
 int main()
 {
-			
+	ll n, t = 0;
+
+	while(cin >> n && n)
+	{
+		cout << "Teste " << ++t << endl;
+		cout << (long long)(pow(2, n) - 1) << endl << endl;
+	}
+
 	return 0;
 }

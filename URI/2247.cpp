@@ -21,6 +21,19 @@ typedef map <string, int> msi;
 
 int main()
 {
-			
+	int n, t = 0;
+	while (cin >> n && n)
+	{
+		cout << "Teste " << ++t << endl;
+		int a, b, k = 0;
+		rep(i, 0, n)
+		{
+			cin >> a >> b;
+			k += a;
+			k -= b;
+			cout << k << endl;
+		}
+		cout << endl;
+	}		
 	return 0;
 }

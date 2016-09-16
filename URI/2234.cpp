@@ -21,6 +21,11 @@ typedef map <string, int> msi;
 
 int main()
 {
-			
+	int a, b;
+
+	cin >> a >> b;
+
+	printf("%.2lf\n", (double)a / (double)b);
+
 	return 0;
 }
