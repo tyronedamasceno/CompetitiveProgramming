@@ -34,12 +34,9 @@ int tab[502][502];
 int main()
 {
 	clr(tab, 0);
-	ll br, pr = 0;
-	/*
-		Preta = 1
-		Branca = 2
-	*/
+	ll br, pr = 0;  // PR = 1, BR = 2
 	int n, p, a, b;
+	bool cPR, cBR;
 
 	in2(n, p);
 
@@ -54,12 +51,26 @@ int main()
 		tab[a][b] = 2;
 	}
 
-	
-	bool confPr, confBr;
-	
-	rep(k, 1, n+1)
-	{
 
+	rep(i, 1, n+1)
+	{
+		rep(j, 1, n+1)
+		{
+			cPR = cBR = false;
+
+			while(!(cPR && cBR))
+			{
+				int dist = min((p-i), (p-j));
+				rep(k, 0, dist)
+				{
+					
+				}
+
+
+
+			}
+
+		}
 	}
 
 
