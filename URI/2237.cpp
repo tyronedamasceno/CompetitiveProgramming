@@ -1,7 +1,7 @@
 /*
 	
 	MARATONA SBC - 2016
-	PROBLEMA H
+	PROBLEMA C
 
 */
 
@@ -21,7 +21,7 @@ typedef vector <ii> vii;
 #define pb push_back
 #define rep(i, a, b) for(int i = a; i < b; i++)
 #define clr(a, x) memset(a, x, sizeof x)
-#define all(a) a.begin(), a.end()
+#define all(a) (a.begin(), a.end())
 #define sz(a) (int)a.size()
 #define F first
 #define S second
@@ -29,20 +29,20 @@ typedef vector <ii> vii;
 #define in2(a, b) scanf("%d %d", &a, &b)
 #define in3(a, b, c) scanf("%d %d %d", &a, &b, &c)
 
+int orig[2][4];
+int dest[2][4];
+
+int solve()
+{
+	
+}
+
 int main()
 {
-	string s, a, b;
+	rep(i, 0, 2) rep(j, 0, 4) cin >> orig[i][j];
+	rep(i, 0, 2) rep(j, 0, 4) cin >> dest[i][j];
 
-	cin >> s;
 
-	rep(i, 0, s.size())
-		if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') a += s[i];
-
-	b = a;
-	reverse(all(b));
-
-	if (a == b) cout << "S" << endl;
-	else cout << "N" << endl;
-	
+	cout << solve() << endl;
 	return 0;
 }

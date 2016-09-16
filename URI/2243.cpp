@@ -1,7 +1,7 @@
 /*
 	
 	MARATONA SBC - 2016
-	PROBLEMA H
+	PROBLEMA I
 
 */
 
@@ -21,7 +21,7 @@ typedef vector <ii> vii;
 #define pb push_back
 #define rep(i, a, b) for(int i = a; i < b; i++)
 #define clr(a, x) memset(a, x, sizeof x)
-#define all(a) a.begin(), a.end()
+#define all(a) (a.begin(), a.end())
 #define sz(a) (int)a.size()
 #define F first
 #define S second
@@ -31,18 +31,34 @@ typedef vector <ii> vii;
 
 int main()
 {
-	string s, a, b;
+	int n;
+	cin >> n;
 
-	cin >> s;
+	vi m(n), a(n), b(n);
 
-	rep(i, 0, s.size())
-		if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') a += s[i];
+	rep(i, 0, n)
+		cin >> m[i];
 
-	b = a;
-	reverse(all(b));
+	a[0] = b[n-1] = 1;
 
-	if (a == b) cout << "S" << endl;
-	else cout << "N" << endl;
-	
+	for (int i = 1; i < n; i++)
+		if (m[i] > a[i-1]) a[i] = a[i-1] + 1;
+		else a[i] = m[i];
+
+	for (int i = n-2; i >= 0; i--)
+		if (m[i] > b[i+1]) b[i] = b[i+1] + 1;
+		else b[i] = m[i];
+
+	int big = 0, aux;
+
+	rep(i, 0, n)
+	{
+		aux = min(a[i], b[i]);
+		big = max(big, aux);
+	}
+
+	cout << big << endl;
+
+
 	return 0;
 }

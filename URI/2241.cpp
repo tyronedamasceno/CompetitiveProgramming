@@ -1,7 +1,7 @@
 /*
 	
 	MARATONA SBC - 2016
-	PROBLEMA H
+	PROBLEMA G
 
 */
 
@@ -21,7 +21,7 @@ typedef vector <ii> vii;
 #define pb push_back
 #define rep(i, a, b) for(int i = a; i < b; i++)
 #define clr(a, x) memset(a, x, sizeof x)
-#define all(a) a.begin(), a.end()
+#define all(a) (a.begin(), a.end())
 #define sz(a) (int)a.size()
 #define F first
 #define S second
@@ -29,20 +29,52 @@ typedef vector <ii> vii;
 #define in2(a, b) scanf("%d %d", &a, &b)
 #define in3(a, b, c) scanf("%d %d %d", &a, &b, &c)
 
+int tab[502][502];
+
 int main()
 {
-	string s, a, b;
+	clr(tab, 0);
+	ll br, pr = 0;  // PR = 1, BR = 2
+	int n, p, a, b;
+	bool cPR, cBR;
 
-	cin >> s;
+	in2(n, p);
 
-	rep(i, 0, s.size())
-		if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') a += s[i];
+	rep(i, 0, p)
+	{
+		in2(a, b);
+		tab[a][b] = 1;
+	}
+	rep(i, 0, p)
+	{
+		in2(a, b);
+		tab[a][b] = 2;
+	}
 
-	b = a;
-	reverse(all(b));
 
-	if (a == b) cout << "S" << endl;
-	else cout << "N" << endl;
-	
+	rep(i, 1, n+1)
+	{
+		rep(j, 1, n+1)
+		{
+			cPR = cBR = false;
+
+			while(!(cPR && cBR))
+			{
+				int dist = min((p-i), (p-j));
+				rep(k, 0, dist)
+				{
+					
+				}
+
+
+
+			}
+
+		}
+	}
+
+
+
+
 	return 0;
 }
