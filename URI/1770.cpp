@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int m, k, ans, aux;
+int m, k, ans, aux, pp;
 bool f;
 map <int, int> a;
 set <int> b;
@@ -25,14 +25,14 @@ int main()
 			cin >> aux;
 			b.insert(aux);
 			ans += a[aux];
-			if(b.size() == m)
+			if(b.size() == m && f)
 			{
-				cout << ans << endl;
+				pp = ans;
 				f = false;
-				break;
 			}
 		}
 		if (f) cout << -1 << endl;
+		else cout << pp << endl;
 	}
 	return 0;
 }
