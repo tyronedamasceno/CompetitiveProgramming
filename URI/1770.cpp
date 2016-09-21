@@ -9,7 +9,7 @@ set <int> b;
 
 int main()
 {
-	while(cin >> m >> k)
+	while(scanf("%d %d", &m, &k) != EOF)
 	{
 		ans = 0;
 		a.clear();
@@ -17,12 +17,12 @@ int main()
 		f = true;
 		for (int i = 1; i <= m; ++i)
 		{
-			cin >> aux;
+			scanf("%d", &aux);
 			a[i] = aux;
 		}
 		for (int i = 0; i < k; ++i)
 		{
-			cin >> aux;
+			scanf("%d", &aux);
 			b.insert(aux);
 			ans += a[aux];
 			if(b.size() == m && f)
@@ -31,8 +31,8 @@ int main()
 				f = false;
 			}
 		}
-		if (f) cout << -1 << endl;
-		else cout << pp << endl;
+		if (f) printf("%d\n", -1);
+		else printf("%d\n", pp);
 	}
 	return 0;
 }
